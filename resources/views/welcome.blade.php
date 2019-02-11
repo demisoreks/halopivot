@@ -39,17 +39,17 @@
     </head>
     <body>
         <div class="container-fluid" style="height: 100vh;">
-            <div class="row h-100" id="content">
-                <div class="col-8 offset-2 align-self-center">
-                    <div class="row">
-                        <div class="col-lg-6 bg-white align-self-center">
-                            <div class="text-center" style="padding: 100px 0;">
-                                {{ Html::image('images/logo.png', 'Halogen Logo') }}
-                                <h1 class="text-primary display-4" style="padding-top: 20px;"><span class="font-weight-bold">Halo</span>Pivot</h1>
+            <div class="row h-100 bg-light"<!-- id="content" -->>
+                <div class="col-10 offset-1 align-self-center">
+                    <div class="row" style="height: 600px;">
+                        <div class="col-lg-6 bg-primary" style="display: flex; align-items: center; justify-content: center;">
+                            <div class="text-center">
+                                {{ Html::image('images/logo-new.jpg', 'Halogen Logo', ['width' => 150]) }}
+                                <h1 class="text-secondary display-4"><span class="font-weight-bold">Halo</span>Pivot</h1>
                             </div>
                         </div>
-                        <div class="col-lg-6 bg-light align-self-center">
-                            <div style="padding: 150px 25px;">
+                        <div class="col-lg-6 bg-secondary" style="display: flex; align-items: center;">
+                            <div class="col-12" style="padding: 0 30px;">
                                 <h1 class="text-primary">Log In Here</h1>
                                 @include('commons.message')
                                 {!! Form::open(['route' => ['authenticate'], 'class' => 'form-group', 'method' => 'post']) !!}

@@ -10,7 +10,7 @@
     <div class="col-12">
         <div id="accordion1">
             <div class="card">
-                <div class="card-header bg-light" id="heading3" style="padding: 0;">
+                <div class="card-header bg-secondary text-primary" id="heading3" style="padding: 0;">
                     <h5 class="mb-0">
                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
                             Active
@@ -24,7 +24,8 @@
                                 <tr class="text-center">
                                     <th width="10%"><strong>ORDER NO.</strong></th>
                                     <th><strong>TITLE</strong></th>
-                                    <th width="40%"><strong>URL</strong></th>
+                                    <th width="35%"><strong>URL</strong></th>
+                                    <th width="12%">&nbsp;</th>
                                     <th width="10%">&nbsp;</th>
                                 </tr>
                             </thead>
@@ -35,6 +36,7 @@
                                     <td class="text-right">{{ $privileged_link->order_no }}</td>
                                     <td>{{ $privileged_link->title }}</td>
                                     <td>{{ $privileged_link->url }}</td>
+                                    <td><a class="btn btn-primary btn-block btn-sm" href="{{ route('privileged_links.roles.index', [$privileged_link->slug()]) }}">Manage Roles</a></td>
                                     <td class="text-center">
                                         <a title="Edit" href="{{ route('privileged_links.edit', [$privileged_link->slug()]) }}"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;
                                         <a title="Trash" href="{{ route('privileged_links.disable', [$privileged_link->slug()]) }}" onclick="return confirmDisable()"><i class="fas fa-trash"></i></a>
@@ -48,7 +50,7 @@
                 </div> 
             </div>
             <div class="card">
-                <div class="card-header bg-light" id="heading4" style="padding: 0;">
+                <div class="card-header bg-secondary text-primary" id="heading4" style="padding: 0;">
                     <h5 class="mb-0">
                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
                             Inactive
@@ -62,7 +64,8 @@
                                 <tr class="text-center">
                                     <th width="10%"><strong>ORDER NO.</strong></th>
                                     <th><strong>TITLE</strong></th>
-                                    <th width="40%"><strong>URL</strong></th>
+                                    <th width="35%"><strong>URL</strong></th>
+                                    <th width="12%">&nbsp;</th>
                                     <th width="10%">&nbsp;</th>
                                 </tr>
                             </thead>
@@ -73,6 +76,7 @@
                                     <td class="text-right">{{ $privileged_link->order_no }}</td>
                                     <td>{{ $privileged_link->title }}</td>
                                     <td>{{ $privileged_link->url }}</td>
+                                    <td><a class="btn btn-primary btn-block btn-sm" href="{{ route('privileged_links.roles.index', [$privileged_link->slug()]) }}">Manage Roles</a></td>
                                     <td class="text-center">
                                         <a title="Restore" href="{{ route('privileged_links.enable', [$privileged_link->slug()]) }}"><i class="fas fa-undo"></i></a>
                                     </td>

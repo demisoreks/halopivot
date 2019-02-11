@@ -42,7 +42,7 @@ class PrivilegedLinksController extends Controller
                     'source_ip' => $_SERVER['REMOTE_ADDR']
                 ]);
                 return Redirect::route('privileged_links.index')
-                        ->with('success', '<strong>Oops!</strong><br />Privileged link has been created.');
+                        ->with('success', '<strong>Successful!</strong><br />Privileged link has been created.');
             } else {
                 return Redirect::back()
                         ->with('error', '<strong>Unknown error!</strong><br />Please contact administrator.')

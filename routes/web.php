@@ -60,3 +60,14 @@ Route::resource('access/privileged_links', 'PrivilegedLinksController');
 Route::bind('privileged_links', function($value, $route) {
     return App\AccPrivilegedLink::findBySlug($value)->first();
 });
+
+Route::get('access/privileged_links/{privileged_link}/roles/{role}/disable', [
+    'as' => 'privileged_links.roles.disable', 'uses' => 'RolesController@disable'
+]);
+Route::get('access/privileged_links/{privileged_link}/roles/{role}/enable', [
+    'as' => 'privileged_links.roles.enable', 'uses' => 'RolesController@enable'
+]);
+Route::resource('access/privileged_links.roles', 'RolesController');
+Route::bind('privileged_links.roles', function($value, $route) {
+    return App\AccRole::findBySlug($value)->first();
+});

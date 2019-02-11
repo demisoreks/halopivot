@@ -62,40 +62,48 @@
     ?>
     <body style="background-color: white;">
         <div class="container-fluid">
-            <div class="row no-gutters" style="margin: 10px 0;">
-                <div class="col-md-5">{{ Html::image('images/logo.png', 'Halogen Logo', ['height' => '50px']) }}</div>
+            <div class="row bg-primary">
+                <div class="col-6">{{ Html::image('images/logo-new-small.jpg', 'Halogen Logo', ['height' => '70px']) }}</div>
             </div>
-            <div class="row bg-primary text-white" style="margin: 10px 0; padding: 5px;"><strong>{{ config('app.name') }} - Access Control</strong></div>
-            <div class="row">
-                <div class="col-lg-2 ">
-                    <div id="accordion">
-                        <div class="card">
-                            <div class="card-header bg-light" id="heading1" style="padding: 0;">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                                        Menu
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordion">
-                                <div class="card-body">
-                                    <nav class="nav flex-column">
-                                        <a class="nav-link active" href="{{ route('employees.index') }}">Employees</a>
-                                        <a class="nav-link active" href="{{ route('privileged_links.index') }}">Privileged Links</a>
-                                        <a class="nav-link active" href="{{ route('general_links.index') }}">General Links</a>
-                                    </nav>
-                                </div>
-                            </div> 
+            <div class="row bg-secondary text-primary" style="padding: 5px 0;">
+                <div class="col-12"><strong>{{ config('app.name') }} - Access Control</strong></div>
+            </div>
+            <div class="row bg-secondary" style="margin-bottom: 20px;">
+                <div class="col-12 no-gutters">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('access') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('employees.index') }}">Employees</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Links
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                                        <a class="dropdown-item" href="{{ route('privileged_links.index') }}">Privileged Links</a>
+                                        <a class="dropdown-item" href="{{ route('general_links.index') }}">General Links</a>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
+                    </nav>
                 </div>
-                <div class="col-lg-10">
-                    <h1 class="page-header" style="border-bottom: 1px solid #CCC; padding-bottom: 10px; margin-bottom: 30px;">{{ $page_title }}</h1>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="page-header text-primary" style="border-bottom: 1px solid #CCC; padding-bottom: 20px; margin-bottom: 10px;">{{ $page_title }}</h1>
                     @include('commons.message')
                     @yield('content')
                 </div>
             </div>
-            <div class="row no-gutters" style="border-top: solid 1px #CCC; margin: 20px 0;">
+            <div class="row" style="border-top: solid 1px #CCC; margin: 20px 0;">
                 <div class="col-lg-4 offset-lg-8 justify-content-end text-right">Powered by <a href="https://halogensecurity.com" target="_blank">Strategy Hub | Halogen Security Company</a></div>
             </div>
         </div>

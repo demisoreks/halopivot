@@ -5,15 +5,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Balping\HashSlug\HasHashSlug;
 
-class AccPrivilegedLink extends Model
+class AccRole extends Model
 {
     use HasHashSlug;
     
-    protected $table = "acc_privileged_links";
+    protected $table = "acc_roles";
     
     protected $guarded = [];
     
-    public function roles() {
-        return $this->hasMany('App\AccRole');
+    public function privilegedLink() {
+        return $this->belongsTo('App\AccPrivilegedLink');
     }
 }
