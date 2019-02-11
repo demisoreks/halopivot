@@ -39,7 +39,7 @@
     </head>
     <body>
         <div class="container-fluid" style="height: 100vh;">
-            <div class="row h-100 bg-light"<!-- id="content" -->>
+            <div class="row h-100 bg-light">
                 <div class="col-10 offset-1 align-self-center">
                     <div class="row" style="height: 600px;">
                         <div class="col-lg-6 bg-primary" style="display: flex; align-items: center; justify-content: center;">
