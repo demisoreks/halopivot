@@ -91,6 +91,9 @@
                                         <a class="dropdown-item" href="{{ route('general_links.index') }}">General Links</a>
                                     </div>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('activities.index') }}">Activities</a>
+                                </li>
                             </ul>
                         </div>
                     </nav>

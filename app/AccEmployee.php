@@ -16,4 +16,8 @@ class AccEmployee extends Model
     public function activities() {
         return $this->hasMany('App\AccActivity');
     }
+    
+    public function employeeRoles() {
+        return $this->hasMany('App\AccEmployeeRole');
+    }
 }

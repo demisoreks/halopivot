@@ -16,4 +16,8 @@ class AccRole extends Model
     public function privilegedLink() {
         return $this->belongsTo('App\AccPrivilegedLink');
     }
+    
+    public function employeeRoles() {
+        return $this->hasMany('App\AccEmployeeRole');
+    }
 }

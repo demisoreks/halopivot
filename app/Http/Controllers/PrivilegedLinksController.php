@@ -9,6 +9,7 @@ use Redirect;
 use Session;
 use App\AccPrivilegedLink;
 use App\AccActivity;
+use App\AccRole;
 
 class PrivilegedLinksController extends Controller
 {
@@ -108,5 +109,9 @@ class PrivilegedLinksController extends Controller
         ]);
         return Redirect::route('privileged_links.index')
                 ->with('success', '<strong>Successful!</strong><br />Privileged link has been enabled.');
+    }
+    
+    public function get_roles(int $privileged_link_id) {
+        return AccRole::where('privileged_link_id', $privileged_link_id)->where('active', true)->orderBy('title')->get()->toJson();
     }
 }

@@ -52,4 +52,63 @@ class RolesController extends Controller
             }
         }
     }
+    
+    public function edit(AccPrivilegedLink $privileged_link, AccRole $role) {
+        return view('access.roles.edit', compact('privileged_link', 'role'));
+    }
+    
+    public function update(AccPrivilegedLink $privileged_link, AccRole $role) {
+        $input = Input::all();
+        $error = "";
+        $existing_roles = AccRole::where('title', $input['title'])->where('privileged_link_id', $privileged_link->id)->where('id', '<>', $role->id);
+        if ($existing_roles->count() != 0) {
+            $error .= "Role already exists.<br />";
+        }
+        if ($error != "") {
+            return Redirect::back()
+                    ->with('error', '<strong>Oops!</strong><br />'.$error)
+                    ->withInput();
+        } else {
+            if ($role->update($input)) {
+                $halo_user = Session::get('halo_user');
+                AccActivity::create([
+                    'employee_id' => $halo_user->id,
+                    'detail' => 'Role was uupdated - '.$role->title.' for '.$privileged_link->title.'.',
+                    'source_ip' => $_SERVER['REMOTE_ADDR']
+                ]);
+                return Redirect::route('privileged_links.roles.index', $privileged_link->slug())
+                        ->with('success', '<strong>Successful!</strong><br />Role has been updated.');
+            } else {
+                return Redirect::back()
+                        ->with('error', '<strong>Unknown error!</strong><br />Please contact administrator.')
+                        ->withInput();
+            }
+        }
+    }
+    
+    public function disable(AccPrivilegedLink $privileged_link, AccRole $role) {
+        $input['active'] = false;
+        $role->update($input);
+        $halo_user = Session::get('halo_user');
+        AccActivity::create([
+            'employee_id' => $halo_user->id,
+            'detail' => 'Role was disabled - '.$role->title.' for '.$privileged_link->title.'.',
+            'source_ip' => $_SERVER['REMOTE_ADDR']
+        ]);
+        return Redirect::route('privileged_links.roles.index', $privileged_link->slug())
+                ->with('success', '<strong>Successful!</strong><br />Role has been disabled.');
+    }
+    
+    public function enable(AccPrivilegedLink $privileged_link, AccRole $role) {
+        $input['active'] = true;
+        $role->update($input);
+        $halo_user = Session::get('halo_user');
+        AccActivity::create([
+            'employee_id' => $halo_user->id,
+            'detail' => 'Role was enabled - '.$role->title.' for '.$privileged_link->title.'.',
+            'source_ip' => $_SERVER['REMOTE_ADDR']
+        ]);
+        return Redirect::route('privileged_links.roles.index', $privileged_link->slug())
+                ->with('success', '<strong>Successful!</strong><br />Role has been enabled.');
+    }
 }

@@ -1,4 +1,4 @@
-@extends('access.app', ['page_title' => 'Roles'])
+@extends('access.app', ['page_title' => 'Roles', 'nest' => 2])
 
 @section('content')
 <div class="row">

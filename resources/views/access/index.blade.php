@@ -33,5 +33,15 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-2">
+        <div class="card">
+            <div class="card-body text-center">
+                <a href="{{ route('activities.index') }}">
+                    <h1 class="text-primary"><i class="fas fa-history"></i></h1>
+                    <h3 class="text-primary">Activities</h3>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

@@ -24,6 +24,7 @@
                                 <tr class="text-center">
                                     <th><strong>USERNAME</strong></th>
                                     <th width="20%"><strong>LAST LOGIN</strong></th>
+                                    <th width="20%"><strong>&nbsp;</strong></th>
                                     <th width="10%">&nbsp;</th>
                                 </tr>
                             </thead>
@@ -33,6 +34,7 @@
                                 <tr>
                                     <td>{{ $employee->username }}</td>
                                     <td class="text-center">{{ $employee->last_login }}</td>
+                                    <td><a class="btn btn-primary btn-block btn-sm" href="{{ route('employees.employee_roles.index', [$employee->slug()]) }}">Manage Permissions</a></td>
                                     <td class="text-center">
                                         <a title="Edit" href="{{ route('employees.edit', [$employee->slug()]) }}"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;
                                         <a title="Trash" href="{{ route('employees.disable', [$employee->slug()]) }}" onclick="return confirmDisable()"><i class="fas fa-trash"></i></a>
@@ -60,6 +62,7 @@
                                 <tr class="text-center">
                                     <th><strong>USERNAME</strong></th>
                                     <th width="20%"><strong>LAST LOGIN</strong></th>
+                                    <th width="20%"><strong>&nbsp;</strong></th>
                                     <th width="10%">&nbsp;</th>
                                 </tr>
                             </thead>
@@ -69,6 +72,7 @@
                                 <tr>
                                     <td>{{ $employee->username }}</td>
                                     <td class="text-center">{{ $employee->last_login }}</td>
+                                    <td><a class="btn btn-primary btn-block btn-sm" href="{{ route('employees.employee_roles.index', [$employee->slug()]) }}">Manage Permissions</a></td>
                                     <td class="text-center">
                                         <a title="Restore" href="{{ route('employees.enable', [$employee->slug()]) }}"><i class="fas fa-undo"></i></a>
                                     </td>
