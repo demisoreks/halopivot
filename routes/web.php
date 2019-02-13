@@ -11,6 +11,8 @@
 |
 */
 
+$link_id = 1;
+
 Route::get('/', [
     'as' => 'welcome', 'uses' => 'LoginController@index'
 ]);
@@ -26,15 +28,15 @@ Route::get('logout', [
 
 Route::get('access', [
     'as' => 'access', 'uses' => 'AccessControlController@index'
-]);
+])->middleware('auth.user', 'auth.access:'.$link_id.',Admin,Control');
 
 Route::get('access/employees/{employee}/disable', [
     'as' => 'employees.disable', 'uses' => 'EmployeesController@disable'
-]);
+])->middleware('auth.user', 'auth.access:'.$link_id.',Admin');
 Route::get('access/employees/{employee}/enable', [
     'as' => 'employees.enable', 'uses' => 'EmployeesController@enable'
-]);
-Route::resource('access/employees', 'EmployeesController');
+])->middleware('auth.user', 'auth.access:'.$link_id.',Admin');
+Route::resource('access/employees', 'EmployeesController')->middleware('auth.user', 'auth.access:'.$link_id.',Control');
 Route::bind('employees', function($value, $route) {
     return App\AccEmployee::findBySlug($value)->first();
 });

@@ -64,6 +64,11 @@
         <div class="container-fluid">
             <div class="row bg-primary">
                 <div class="col-6">{{ Html::image('images/logo-new-small.jpg', 'Halogen Logo', ['height' => '70px']) }}</div>
+                <div class="col-6">
+                    <div class="float-right text-white" style="display: flex; align-items: center; justify-content: center; height: 100%;">
+                        {{ Session::get('halo_user')->username }}
+                    </div>
+                </div>
             </div>
             <div class="row bg-secondary text-primary" style="padding: 5px 0;">
                 <div class="col-12"><strong>{{ config('app.name') }} - Access Control</strong></div>

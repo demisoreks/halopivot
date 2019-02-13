@@ -8,8 +8,11 @@ use Input;
 use Redirect;
 use Session;
 use Lava;
+use DB;
 use App\AccEmployee;
 use App\AccActivity;
+
+use GuzzleHttp\Client;
 
 class LoginController extends Controller
 {
@@ -73,7 +76,15 @@ class LoginController extends Controller
             'title' => 'YTD Performance'
         ]);
         
-        return view('dashboard');
+        $client = new Client();
+        $res = $client->request('GET', DB::table('acc_config')->whereId(1)->first()->master_url.'/api/getLinks', [
+            'query' => [
+                'username' => Session::get('halo_user')->username
+            ]
+        ]);
+        $links = json_decode($res->getBody());
+        
+        return view('dashboard', compact('links'));
     }
     
     public function logout() {
