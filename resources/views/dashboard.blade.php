@@ -45,7 +45,7 @@
                 if ($total_weight == 0) {
                     $weighted_average = 0;
                 } else {
-                    $weighted_average = number_format(($total_score/$total_weight)*100, 1);
+                    $weighted_average = number_format(($total_score/$total_weight)*100);
                 }
                 ?>
                 {{ $project->name }} - {{ $weighted_average }}%
