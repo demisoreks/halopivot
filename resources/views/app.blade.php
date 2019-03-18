@@ -60,34 +60,63 @@
         }
     }
     ?>
-    <body style="background-color: white;">
-        <div class="container-fluid">
+    <body style="background-color: #f6f7fb;">
+        <div class="container-fluid" style="height: 100vh;">
             <div class="row bg-primary">
-                <div class="col-6">{{ Html::image('images/logo-new-small.jpg', 'Halogen Logo', ['height' => '70px']) }}</div>
-                <div class="col-6">
+                <div class="col-md-6">
+                    <div class="text-white float-left" style="display: flex; align-items: center; justify-content: center;">
+                        {{ Html::image('images/logo-new.jpg', 'Halogen Logo', ['width' => 60]) }}&nbsp;&nbsp;
+                        <h4><span class="font-weight-bold">Halo</span>Pivot</h4>
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="float-right text-white" style="display: flex; align-items: center; justify-content: center; height: 100%;">
                         {{ Session::get('halo_user')->username }}&nbsp;
                         ​<span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ Html::image('images/dummy-profile.png', 'Profile picture', ['height' => '50px']) }}
+                            {{ Html::image('images/dummy-profile.png', 'Profile picture', ['height' => '50px', 'class' => 'rounded-circle']) }}
                         </span>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#"><i class="fas fa-lock"></i> Employee Profile</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-user"></i> Employee Profile</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row bg-secondary text-primary" style=" margin-bottom: 20px; padding: 5px 0;">
-                <div class="col-12"><strong>Welcome to {{ config('app.name') }}!</strong></div>
+            <div class="row bg-secondary">
+                <div class="col-12" style="height: 10px;">
+                    
+                </div>
             </div>
             <div class="row">
-                <div class="col-lg-2 ">
-                    <div id="accordion">
+                <div class="col-12 text-center">
+                    <h1 class="page-header" style="border-bottom: 1px solid #999; padding: 30px 0; margin-bottom: 20px; color: #999;">{{ $page_title }}</h1>
+                </div>
+            </div>
+            @include('commons.message')
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="card" style="margin-bottom: 10px;">
+                        <div class="card-body text-center text-primary">
+                            <a href="#" target="__blank">
+                                <h3><i class="fas fa-map-marker"></i></h3>
+                                Telematics
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-bottom: 10px;">
+                        <div class="card-body text-center">
+                            <a href="#" target="__blank">
+                                <h3><i class="fas fa-camera"></i></h3>
+                                Surveillance
+                            </a>
+                        </div>
+                    </div>
+                    <div id="accordion" style="margin-bottom: 10px;">
                         <div class="card">
-                            <div class="card-header bg-secondary text-primary" id="heading1" style="padding: 0;">
+                            <div class="card-header bg-white" id="heading1" style="padding: 0;">
                                 <h5 class="mb-0">
                                     <button class="btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                                        Privileged Links
+                                        <strong>Privileged Links</strong>
                                     </button>
                                 </h5>
                             </div>
@@ -102,10 +131,10 @@
                             </div> 
                         </div>
                         <div class="card">
-                            <div class="card-header bg-secondary text-primary" id="heading2" style="padding: 0;">
+                            <div class="card-header bg-white" id="heading2" style="padding: 0;">
                                 <h5 class="mb-0">
                                     <button class="btn btn-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                                        General Links
+                                        <strong>General Links</strong>
                                     </button>
                                 </h5>
                             </div>
@@ -121,14 +150,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-10">
-                    <h1 class="page-header text-primary" style="border-bottom: 1px solid #CCC; padding-bottom: 10px; margin-bottom: 30px;">{{ $page_title }}</h1>
-                    @include('commons.message')
+                <div class="col-md-10">
                     @yield('content')
                 </div>
             </div>
-            <div class="row" style="border-top: solid 1px #CCC; margin: 20px 0;">
-                <div class="col-lg-4 offset-lg-8 justify-content-end text-right">Powered by <a href="https://halogensecurity.com" target="_blank">Strategy Hub | Halogen Security Company</a></div>
+            <div class="row">
+                <div class="col-12 justify-content-end text-right">
+                    <div style="border-top: 1px solid #999; margin-top: 20px; padding: 10px 0;">Powered by <a href="https://halogensecurity.com" target="_blank">Strategy Hub | Halogen Security Company</a></div>
+                </div>
             </div>
         </div>
     </body>

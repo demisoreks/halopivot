@@ -16,10 +16,10 @@
     <div class="col-12">
         <div id="accordion">
             <div class="card">
-                <div class="card-header bg-secondary text-primary" id="heading1" style="padding: 0;">
+                <div class="card-header bg-white text-primary" id="heading1" style="padding: 0;">
                     <h5 class="mb-0">
                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                            Active
+                            <strong>Active</strong>
                         </button>
                     </h5>
                 </div>

@@ -10,10 +10,10 @@
     <div class="col-12">
         <div id="accordion1">
             <div class="card">
-                <div class="card-header bg-secondary text-primary" id="heading3" style="padding: 0;">
+                <div class="card-header bg-white text-primary" id="heading3" style="padding: 0;">
                     <h5 class="mb-0">
                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
-                            Active
+                            <strong>Active</strong>
                         </button>
                     </h5>
                 </div>
@@ -48,10 +48,10 @@
                 </div> 
             </div>
             <div class="card">
-                <div class="card-header bg-secondary text-primary" id="heading4" style="padding: 0;">
+                <div class="card-header bg-white text-primary" id="heading4" style="padding: 0;">
                     <h5 class="mb-0">
                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
-                            Inactive
+                            <strong>Inactive</strong>
                         </button>
                     </h5>
                 </div>

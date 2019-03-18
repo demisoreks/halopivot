@@ -28,6 +28,8 @@ class LoginController extends Controller
             // authentication
             if ($input['password'] == "123456") {
                 if ($employee->active) {
+                    if (!isset($_SESSION)) session_start();
+                    $_SESSION['halo_user'] = $employee;
                     Session::put('halo_user', $employee);
                     AccActivity::create([
                         'employee_id' => $employee->id,
@@ -73,7 +75,8 @@ class LoginController extends Controller
         $performance->addRow(['PS', 2500000000, 1350000000]);
         
         Lava::ColumnChart('Performance', $performance, [
-            'title' => 'YTD Performance'
+            'title' => 'YTD Performance',
+            'fontName' => 'Poppins'
         ]);
         
         $client = new Client();
@@ -91,6 +94,8 @@ class LoginController extends Controller
         if (Session::has('halo_user')) {
             $employee = Session::get('halo_user');
             Session::forget('halo_user');
+            if (!isset($_SESSION)) session_start();
+            unset($_SESSION['halo_user']);
             AccActivity::create([
                 'employee_id' => $employee->id, 
                 'detail' => 'User logged out.', 

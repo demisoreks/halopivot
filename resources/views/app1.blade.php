@@ -71,7 +71,7 @@
                             {{ Html::image('images/dummy-profile.png', 'Profile picture', ['height' => '50px']) }}
                         </span>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#"><i class="fas fa-lock"></i> Employee Profile</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-user"></i> Employee Profile</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a>
                         </div>
                     </div>
@@ -94,9 +94,9 @@
                             <div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordion">
                                 <div class="card-body">
                                     <nav class="nav flex-column">
-                                        <a class="nav-link active" href="#">Link 1</a>
-                                        <a class="nav-link active" href="#">Link 2</a>
-                                        <a class="nav-link active" href="#">Link 3</a>
+                                        @foreach ($links as $link)
+                                        <a class="nav-link active" href="{{ $link->url }}" target="_blank">{{ $link->title }}</a>
+                                        @endforeach
                                     </nav>
                                 </div>
                             </div> 

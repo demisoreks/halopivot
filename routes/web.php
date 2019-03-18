@@ -28,37 +28,37 @@ Route::get('logout', [
 
 Route::get('access', [
     'as' => 'access', 'uses' => 'AccessControlController@index'
-])->middleware('auth.user', 'auth.access:'.$link_id.',Admin,Control');
+])->middleware(['auth.user', 'auth.access:'.$link_id.',Admin,Control']);
 
 Route::get('access/employees/{employee}/disable', [
     'as' => 'employees.disable', 'uses' => 'EmployeesController@disable'
-])->middleware('auth.user', 'auth.access:'.$link_id.',Admin');
+])->middleware(['auth.user', 'auth.access:'.$link_id.',Control']);
 Route::get('access/employees/{employee}/enable', [
     'as' => 'employees.enable', 'uses' => 'EmployeesController@enable'
-])->middleware('auth.user', 'auth.access:'.$link_id.',Admin');
-Route::resource('access/employees', 'EmployeesController')->middleware('auth.user', 'auth.access:'.$link_id.',Control');
+])->middleware(['auth.user', 'auth.access:'.$link_id.',Control']);
+Route::resource('access/employees', 'EmployeesController')->middleware(['auth.user', 'auth.access:'.$link_id.',Control']);
 Route::bind('employees', function($value, $route) {
     return App\AccEmployee::findBySlug($value)->first();
 });
 
 Route::get('access/general_links/{general_link}/disable', [
     'as' => 'general_links.disable', 'uses' => 'GeneralLinksController@disable'
-]);
+])->middleware(['auth.user', 'auth.access:'.$link_id.',Admin']);
 Route::get('access/general_links/{general_link}/enable', [
     'as' => 'general_links.enable', 'uses' => 'GeneralLinksController@enable'
-]);
-Route::resource('access/general_links', 'GeneralLinksController');
+])->middleware(['auth.user', 'auth.access:'.$link_id.',Admin']);
+Route::resource('access/general_links', 'GeneralLinksController')->middleware(['auth.user', 'auth.access:'.$link_id.',Admin']);
 Route::bind('general_links', function($value, $route) {
     return App\AccGeneralLink::findBySlug($value)->first();
 });
 
 Route::get('access/privileged_links/{privileged_link}/disable', [
     'as' => 'privileged_links.disable', 'uses' => 'PrivilegedLinksController@disable'
-]);
+])->middleware(['auth.user', 'auth.access:'.$link_id.',Admin']);
 Route::get('access/privileged_links/{privileged_link}/enable', [
     'as' => 'privileged_links.enable', 'uses' => 'PrivilegedLinksController@enable'
-]);
-Route::resource('access/privileged_links', 'PrivilegedLinksController');
+])->middleware(['auth.user', 'auth.access:'.$link_id.',Admin']);
+Route::resource('access/privileged_links', 'PrivilegedLinksController')->middleware(['auth.user', 'auth.access:'.$link_id.',Admin']);
 Route::bind('privileged_links', function($value, $route) {
     return App\AccPrivilegedLink::findBySlug($value)->first();
 });
@@ -69,23 +69,23 @@ Route::get('access/privileged_links/{privileged_link}/get_roles', [
 
 Route::get('access/privileged_links/{privileged_link}/roles/{role}/disable', [
     'as' => 'privileged_links.roles.disable', 'uses' => 'RolesController@disable'
-]);
+])->middleware(['auth.user', 'auth.access:'.$link_id.',Admin']);
 Route::get('access/privileged_links/{privileged_link}/roles/{role}/enable', [
     'as' => 'privileged_links.roles.enable', 'uses' => 'RolesController@enable'
-]);
-Route::resource('access/privileged_links.roles', 'RolesController');
+])->middleware(['auth.user', 'auth.access:'.$link_id.',Admin']);
+Route::resource('access/privileged_links.roles', 'RolesController')->middleware(['auth.user', 'auth.access:'.$link_id.',Admin']);
 Route::bind('privileged_links.roles', function($value, $route) {
     return App\AccRole::findBySlug($value)->first();
 });
 
 Route::get('access/employees/{employee}/employee_roles/{employee_role}/delete', [
     'as' => 'employees.employee_roles.delete', 'uses' => 'EmployeeRolesController@destroy'
-]);
-Route::resource('access/employees.employee_roles', 'EmployeeRolesController');
+])->middleware(['auth.user', 'auth.access:'.$link_id.',Control']);
+Route::resource('access/employees.employee_roles', 'EmployeeRolesController')->middleware(['auth.user', 'auth.access:'.$link_id.',Control']);
 Route::bind('employees.employee_roles', function($value, $route) {
     return App\AccEmployeeRole::findBySlug($value)->first();
 });
 
 Route::get('access/activities', [
     'as' => 'activities.index', 'uses' => 'ActivitiesController@index'
-]);
+])->middleware(['auth.user', 'auth.access:'.$link_id.',Control']);

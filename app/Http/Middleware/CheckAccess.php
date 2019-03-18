@@ -19,8 +19,11 @@ class CheckAccess
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $link_id, ...$roles)
+    public function handle($request, Closure $next, ...$roles)
     {
+        $link_id = $roles[0];
+        unset($roles[0]);
+        
         $pass = false;
         $client = new Client();
         $res = $client->request('GET', DB::table('acc_config')->whereId(1)->first()->master_url.'/api/getRoles', [
@@ -29,16 +32,17 @@ class CheckAccess
                 'link_id' => $link_id
             ]
         ]);
-        $permissions = $res->getBody();
-        foreach ($roles as $role) {
-            if (in_array($role, json_decode($permissions))) {
+        $permissions = json_decode($res->getBody());
+        
+        foreach ($permissions as $permission) {
+            if (in_array($permission, $roles)) {
                 $pass = true;
                 break;
             }
         }
         
         if ($pass == false) {
-            return Redirect::to(DB::table('acc_config')->whereId(1)->first()->master_url.'/dashboard')
+            return Redirect::route('access')
                     ->with('error', '<strong>Access denied!</strong><br />You are not permitted to view the requested page.');
         }
         

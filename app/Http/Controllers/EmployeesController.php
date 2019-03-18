@@ -42,7 +42,7 @@ class EmployeesController extends Controller
                     'source_ip' => $_SERVER['REMOTE_ADDR']
                 ]);
                 return Redirect::route('employees.index')
-                        ->with('success', '<strong>Oops!</strong><br />Employee has been created.');
+                        ->with('success', '<strong>Successful!</strong><br />Employee has been created.');
             } else {
                 return Redirect::back()
                         ->with('error', '<strong>Unknown error!</strong><br />Please contact administrator.')

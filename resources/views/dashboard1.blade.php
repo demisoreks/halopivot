@@ -4,11 +4,11 @@
 @include('commons.message')
 <div class="row">
     <div class="col-lg-4">
-        <div class="card" style="margin-bottom: 10px;">
-            <div class="card-header bg-white">
-                <strong>PROJECT TRACKER</strong>
+        <div class="card">
+            <div class="card-header">
+                <h5>Project Tracker</h5>
             </div>
-            <div class="card-body" style="height: 519px; overflow-y: scroll;">
+            <div class="card-body" style="height: 524px; overflow-y: scroll;">
                 <!--<h6 class="text-center"><a href="#">Download Full Project Tracker</a></h6>-->
                 <p>
                     <span class="text-center">
@@ -48,9 +48,9 @@
                     $weighted_average = number_format(($total_score/$total_weight)*100, 1);
                 }
                 ?>
-                {{ $project->name }} - {{ $weighted_average }}%
+                {{ $project->name }}
                 <div class="progress" style="margin: 0 0 10px 0;">
-                    <div class="{{ $class }} progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{ $weighted_average }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="{{ $class }}" role="progressbar" style="width: {{ $weighted_average }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ $weighted_average }}%</div>
                 </div>
                 @endforeach
             </div>
@@ -60,8 +60,8 @@
         <div class="row" style="margin-bottom: 30px;">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header bg-white">
-                        <strong>OPCO PERFORMANCE SUMMARY</strong>
+                    <div class="card-header">
+                        <h5>OPCOs Performance Summary</h5>
                     </div>
                     <div class="card-body">
                         <div id="opco-performance" style="width: 100%; height: 200px;"></div>
@@ -71,20 +71,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6" style="margin-bottom: 10px;">
+            <div class="col-lg-6">
                 <div class="card">
-                    <div class="card-header bg-white">
-                        <strong>EXCO RESOLUTIONS</strong>
+                    <div class="card-header">
+                        <h5>EXCO Resolutions</h5>
                     </div>
                     <div class="card-body" style="height: 200px; overflow-y: scroll;">
                         List
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6" style="margin-bottom: 10px;">
+            <div class="col-lg-6">
                 <div class="card">
-                    <div class="card-header bg-white">
-                        <strong>POLICIES</strong>
+                    <div class="card-header">
+                        <h5>Policies</h5>
                     </div>
                     <div class="card-body" style="height: 200px; overflow-y: scroll;">
                         List
