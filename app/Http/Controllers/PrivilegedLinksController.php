@@ -31,7 +31,7 @@ class PrivilegedLinksController extends Controller
         }
         if ($error != "") {
             return Redirect::back()
-                    ->with('error', '<strong>Oops!</strong><br />'.$error)
+                    ->with('error', '<span class="font-weight-bold">Oops!</span><br />'.$error)
                     ->withInput();
         } else {
             $privileged_link = AccPrivilegedLink::create($input);
@@ -43,10 +43,10 @@ class PrivilegedLinksController extends Controller
                     'source_ip' => $_SERVER['REMOTE_ADDR']
                 ]);
                 return Redirect::route('privileged_links.index')
-                        ->with('success', '<strong>Successful!</strong><br />Privileged link has been created.');
+                        ->with('success', '<span class="font-weight-bold">Successful!</span><br />Privileged link has been created.');
             } else {
                 return Redirect::back()
-                        ->with('error', '<strong>Unknown error!</strong><br />Please contact administrator.')
+                        ->with('error', '<span class="font-weight-bold">Unknown error!</span><br />Please contact administrator.')
                         ->withInput();
             }
         }
@@ -65,7 +65,7 @@ class PrivilegedLinksController extends Controller
         }
         if ($error != "") {
             return Redirect::back()
-                    ->with('error', '<strong>Oops!</strong><br />'.$error)
+                    ->with('error', '<span class="font-weight-bold">Oops!</span><br />'.$error)
                     ->withInput();
         } else {
             if ($privileged_link->update($input)) {
@@ -76,10 +76,10 @@ class PrivilegedLinksController extends Controller
                     'source_ip' => $_SERVER['REMOTE_ADDR']
                 ]);
                 return Redirect::route('privileged_links.index')
-                        ->with('success', '<strong>Successful!</strong><br />Privileged link has been updated.');
+                        ->with('success', '<span class="font-weight-bold">Successful!</span><br />Privileged link has been updated.');
             } else {
                 return Redirect::back()
-                        ->with('error', '<strong>Unknown error!</strong><br />Please contact administrator.')
+                        ->with('error', '<span class="font-weight-bold">Unknown error!</span><br />Please contact administrator.')
                         ->withInput();
             }
         }
@@ -95,7 +95,7 @@ class PrivilegedLinksController extends Controller
             'source_ip' => $_SERVER['REMOTE_ADDR']
         ]);
         return Redirect::route('privileged_links.index')
-                ->with('success', '<strong>Successful!</strong><br />Privileged link has been disabled.');
+                ->with('success', '<span class="font-weight-bold">Successful!</span><br />Privileged link has been disabled.');
     }
     
     public function enable(AccPrivilegedLink $privileged_link) {
@@ -108,7 +108,7 @@ class PrivilegedLinksController extends Controller
             'source_ip' => $_SERVER['REMOTE_ADDR']
         ]);
         return Redirect::route('privileged_links.index')
-                ->with('success', '<strong>Successful!</strong><br />Privileged link has been enabled.');
+                ->with('success', '<span class="font-weight-bold">Successful!</span><br />Privileged link has been enabled.');
     }
     
     public function get_roles(int $privileged_link_id) {

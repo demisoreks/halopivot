@@ -19,6 +19,12 @@ Route::get('/', [
 Route::post('authenticate', [
     'as' => 'authenticate', 'uses' => 'LoginController@authenticate'
 ]);
+Route::get('change_password/{employee}', [
+    'as' => 'change_password', 'uses' => 'LoginController@change_password'
+]);
+Route::post('update_password/{employee}', [
+    'as' => 'update_password', 'uses' => 'LoginController@update_password'
+]);
 Route::get('dashboard', [
     'as' => 'dashboard', 'uses' => 'LoginController@dashboard'
 ])->middleware('auth.user');

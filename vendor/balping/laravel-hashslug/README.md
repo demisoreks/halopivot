@@ -38,6 +38,7 @@ composer require balping/laravel-hashslug
 | 5.5.\*  | 2.1.\*   |
 | 5.6.\*  | 2.1.\*   |
 | 5.7.\*  | 2.1.\*   |
+| 5.8.\*  | 2.1.\*   |
 
 
 > **Note:** This package requires either the [BC Math](https://secure.php.net/manual/en/book.bc.php) or [GMP](https://secure.php.net/manual/en/book.gmp.php) extension in order to work.

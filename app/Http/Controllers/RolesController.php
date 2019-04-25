@@ -31,7 +31,7 @@ class RolesController extends Controller
         }
         if ($error != "") {
             return Redirect::back()
-                    ->with('error', '<strong>Oops!</strong><br />'.$error)
+                    ->with('error', '<span class="font-weight-bold">Oops!</span><br />'.$error)
                     ->withInput();
         } else {
             $input['privileged_link_id'] = $privileged_link->id;
@@ -44,10 +44,10 @@ class RolesController extends Controller
                     'source_ip' => $_SERVER['REMOTE_ADDR']
                 ]);
                 return Redirect::route('privileged_links.roles.index', $privileged_link->slug())
-                        ->with('success', '<strong>Successful!</strong><br />Role has been created.');
+                        ->with('success', '<span class="font-weight-bold">Successful!</span><br />Role has been created.');
             } else {
                 return Redirect::back()
-                        ->with('error', '<strong>Unknown error!</strong><br />Please contact administrator.')
+                        ->with('error', '<span class="font-weight-bold">Unknown error!</span><br />Please contact administrator.')
                         ->withInput();
             }
         }
@@ -66,7 +66,7 @@ class RolesController extends Controller
         }
         if ($error != "") {
             return Redirect::back()
-                    ->with('error', '<strong>Oops!</strong><br />'.$error)
+                    ->with('error', '<span class="font-weight-bold">Oops!</span><br />'.$error)
                     ->withInput();
         } else {
             if ($role->update($input)) {
@@ -77,10 +77,10 @@ class RolesController extends Controller
                     'source_ip' => $_SERVER['REMOTE_ADDR']
                 ]);
                 return Redirect::route('privileged_links.roles.index', $privileged_link->slug())
-                        ->with('success', '<strong>Successful!</strong><br />Role has been updated.');
+                        ->with('success', '<span class="font-weight-bold">Successful!</span><br />Role has been updated.');
             } else {
                 return Redirect::back()
-                        ->with('error', '<strong>Unknown error!</strong><br />Please contact administrator.')
+                        ->with('error', '<span class="font-weight-bold">Unknown error!</span><br />Please contact administrator.')
                         ->withInput();
             }
         }
@@ -96,7 +96,7 @@ class RolesController extends Controller
             'source_ip' => $_SERVER['REMOTE_ADDR']
         ]);
         return Redirect::route('privileged_links.roles.index', $privileged_link->slug())
-                ->with('success', '<strong>Successful!</strong><br />Role has been disabled.');
+                ->with('success', '<span class="font-weight-bold">Successful!</span><br />Role has been disabled.');
     }
     
     public function enable(AccPrivilegedLink $privileged_link, AccRole $role) {
@@ -109,6 +109,6 @@ class RolesController extends Controller
             'source_ip' => $_SERVER['REMOTE_ADDR']
         ]);
         return Redirect::route('privileged_links.roles.index', $privileged_link->slug())
-                ->with('success', '<strong>Successful!</strong><br />Role has been enabled.');
+                ->with('success', '<span class="font-weight-bold">Successful!</span><br />Role has been enabled.');
     }
 }

@@ -31,7 +31,7 @@ class EmployeeRolesController extends Controller
         }
         if ($error != "") {
             return Redirect::back()
-                    ->with('error', '<strong>Oops!</strong><br />'.$error);
+                    ->with('error', '<span class="font-weight-bold">Oops!</span><br />'.$error);
         } else {
             $input['employee_id'] = $employee->id;
             unset($input['privileged_link_id']);
@@ -44,10 +44,10 @@ class EmployeeRolesController extends Controller
                     'source_ip' => $_SERVER['REMOTE_ADDR']
                 ]);
                 return Redirect::route('employees.employee_roles.index', $employee->slug())
-                        ->with('success', '<strong>Successful!</strong><br />Permission has been created.');
+                        ->with('success', '<span class="font-weight-bold">Successful!</span><br />Permission has been created.');
             } else {
                 return Redirect::back()
-                        ->with('error', '<strong>Unknown error!</strong><br />Please contact administrator.')
+                        ->with('error', '<span class="font-weight-bold">Unknown error!</span><br />Please contact administrator.')
                         ->withInput();
             }
         }

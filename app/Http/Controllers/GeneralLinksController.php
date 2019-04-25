@@ -30,7 +30,7 @@ class GeneralLinksController extends Controller
         }
         if ($error != "") {
             return Redirect::back()
-                    ->with('error', '<strong>Oops!</strong><br />'.$error)
+                    ->with('error', '<span class="font-weight-bold">Oops!</span><br />'.$error)
                     ->withInput();
         } else {
             $general_link = AccGeneralLink::create($input);
@@ -42,10 +42,10 @@ class GeneralLinksController extends Controller
                     'source_ip' => $_SERVER['REMOTE_ADDR']
                 ]);
                 return Redirect::route('general_links.index')
-                        ->with('success', '<strong>Oops!</strong><br />General link has been created.');
+                        ->with('success', '<span class="font-weight-bold">Oops!</span><br />General link has been created.');
             } else {
                 return Redirect::back()
-                        ->with('error', '<strong>Unknown error!</strong><br />Please contact administrator.')
+                        ->with('error', '<span class="font-weight-bold">Unknown error!</span><br />Please contact administrator.')
                         ->withInput();
             }
         }
@@ -64,7 +64,7 @@ class GeneralLinksController extends Controller
         }
         if ($error != "") {
             return Redirect::back()
-                    ->with('error', '<strong>Oops!</strong><br />'.$error)
+                    ->with('error', '<span class="font-weight-bold">Oops!</span><br />'.$error)
                     ->withInput();
         } else {
             if ($general_link->update($input)) {
@@ -75,10 +75,10 @@ class GeneralLinksController extends Controller
                     'source_ip' => $_SERVER['REMOTE_ADDR']
                 ]);
                 return Redirect::route('general_links.index')
-                        ->with('success', '<strong>Successful!</strong><br />General link has been updated.');
+                        ->with('success', '<span class="font-weight-bold">Successful!</span><br />General link has been updated.');
             } else {
                 return Redirect::back()
-                        ->with('error', '<strong>Unknown error!</strong><br />Please contact administrator.')
+                        ->with('error', '<span class="font-weight-bold">Unknown error!</span><br />Please contact administrator.')
                         ->withInput();
             }
         }
@@ -94,7 +94,7 @@ class GeneralLinksController extends Controller
             'source_ip' => $_SERVER['REMOTE_ADDR']
         ]);
         return Redirect::route('general_links.index')
-                ->with('success', '<strong>Successful!</strong><br />General link has been disabled.');
+                ->with('success', '<span class="font-weight-bold">Successful!</span><br />General link has been disabled.');
     }
     
     public function enable(AccGeneralLink $general_link) {
@@ -107,6 +107,6 @@ class GeneralLinksController extends Controller
             'source_ip' => $_SERVER['REMOTE_ADDR']
         ]);
         return Redirect::route('general_links.index')
-                ->with('success', '<strong>Successful!</strong><br />General link has been enabled.');
+                ->with('success', '<span class="font-weight-bold">Successful!</span><br />General link has been enabled.');
     }
 }

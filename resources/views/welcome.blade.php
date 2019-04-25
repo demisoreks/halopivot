@@ -51,10 +51,10 @@
                             {!! Form::text('username', null, ['class' => 'form-control', 'placeholder' => 'Username', 'required' => true]) !!}
                         </div>
                         <div class="form-group" style="margin-bottom: 30px;">
-                            {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password', 'required' => true]) !!}
+                            {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password', 'required' => true, 'id' => 'password']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::submit('Log In', ['class' => 'btn btn-primary btn-block']) !!}
+                            {!! Form::submit('Log In', ['class' => 'btn btn-primary btn-block', 'onClick' => 'return passwordHash()']) !!}
                         </div>
                         {!! Form::close() !!}
                         <div class="text-small text-primary text-center">New to HaloPivot?<br />Contact <a href="mailto:itsupport@halogensecurity.com">itsupport@halogensecurity.com</a></div>
@@ -63,5 +63,24 @@
                 <div class="col-12 justify-content-end text-right text-white">Powered by <a href="https://halogensecurity.com" target="_blank">Strategy Hub | Halogen Security Company</a></div>
             </div>
         </div>
+        
+        <script type="text/javascript">
+            String.prototype.hashCode = function() {
+                var hash = "";
+                if (this.length == 0)
+                    return hash;
+                for (i=0; i<this.length; i++) {
+                    char = this.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash;           // Convert to 32 bit integer
+                }
+                return hash;
+            }
+
+            function passwordHash() {
+                var password = document.getElementById('password').value;
+                document.getElementById('password').value = password.hashCode();
+            }
+        </script>
     </body>
 </html>
