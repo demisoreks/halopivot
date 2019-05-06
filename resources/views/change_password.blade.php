@@ -64,9 +64,11 @@
                     return false;
                 } else {
                     var password = document.getElementById('password').value;
-                    document.getElementById('password').value = password.hashCode();
+                    //document.getElementById('password').value = password.hashCode();
+                    document.getElementById('password').value = password;
                     var password2 = document.getElementById('password2').value;
-                    document.getElementById('password2').value = password2.hashCode();
+                    //document.getElementById('password2').value = password2.hashCode();
+                    document.getElementById('password2').value = password2;
                     return true;
                 }
             }

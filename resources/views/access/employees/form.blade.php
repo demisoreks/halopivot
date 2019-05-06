@@ -51,6 +51,7 @@
     function passwordHash() {
         var password = document.getElementById('password').value;
         document.getElementById('password2').value = password;
-        document.getElementById('password').value = password.hashCode();
+        //document.getElementById('password').value = password.hashCode();
+        document.getElementById('password').value = password;
     }
 </script>

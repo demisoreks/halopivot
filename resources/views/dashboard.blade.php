@@ -2,6 +2,22 @@
 
 @section('content')
 @include('commons.message')
+@if (DB::table('acc_config')->whereId(1)->first()->show_dashboard_video)
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" style="margin-bottom: 20px;">
+            <div class="card-header bg-white">
+                <strong>{{ strtoupper(DB::table('acc_config')->whereId(1)->first()->dashboard_video_title) }}</strong>
+            </div>
+            <div class="card-body">
+                <video class="col-12" controls autoplay>
+                    <source src="{{ URL::asset('dashboard_video.mp4') }}" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @if (strpos(Session::get('halo_user')->dashboard_view, 'exco') !== false || strpos(Session::get('halo_user')->dashboard_view, 'strategy') !== false)
 <div class="row">
     <div class="col-lg-4">
@@ -327,6 +343,7 @@ if ($mid_level != "") {
         </div>
     </div>
 </div>
+
 
 <script type="text/javascript">
     $(document).ready(function () {

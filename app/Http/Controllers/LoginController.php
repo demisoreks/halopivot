@@ -9,6 +9,7 @@ use Redirect;
 use Session;
 use Lava;
 use DB;
+use Mail;
 use App\AccEmployee;
 use App\AccActivity;
 use App\AccOpco;
@@ -199,5 +200,68 @@ class LoginController extends Controller
         }
         return Redirect::route('welcome')
                 ->with('success', '<span class="font-weight-bold">Successful!</span><br />You have logged out.');
+    }
+    
+    public function generate_passwords() {
+        $p1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $p2 = "abcdefghijklmnopqrstuvwxyz";
+        $p3 = "0123456789";
+        $p4 = "!@#$%";
+        
+        $tmp_users = DB::table('tmp_users')->get();
+        foreach ($tmp_users as $tmp_user) {
+            $email = strtolower(trim($tmp_user->email));
+            $email_parts = explode('@', $email);
+            $username = $email_parts[0];
+            $password = substr(str_shuffle($p1), 0, 1).substr(str_shuffle($p2), 0, 3).substr(str_shuffle($p3), 0, 3).substr(str_shuffle($p4), 0, 1);
+            $input['salt'] = substr(LoginController::hashPassword($username, 7), 10, 50);
+            $input['password'] = LoginController::hashPassword($password.$input['salt'], 8);
+            $input['change_password'] = true;
+            $tmp_input = [
+                'username' => $username,
+                'password' => $password,
+                'sent' => false
+            ];
+            DB::table('tmp_users')->where('email', $tmp_user->email)->update($tmp_input);
+            $existing_users = AccEmployee::where('username', $username);
+            $action = "";
+            if ($existing_users->count() == 0) {
+                $input['username'] = $username;
+                $input['dashboard_view'] = "";
+                AccEmployee::create($input);
+                $action = $username." CREATED<br />";
+            } else {
+                unset($input['username']);
+                $user = $existing_users->first();
+                $user->update($input);
+                $action = $username." updated<br />";
+            }
+            echo $action;
+        }
+        echo "Done!!!";
+    }
+    
+    public function send_credentials() {
+        $users = DB::table('tmp_users')->get();
+        foreach ($users as $user) {
+            $name = explode('.', $user->username);
+            
+            $email_data = [
+                'first_name' => strtoupper($name[0]),
+                'link' => 'http://halopivot.halogensecurity.com',
+                'username' => $user->username,
+                'password' => $user->password
+            ];
+
+            $recipient = $user->username.'@halogensecurity.com';
+            //$recipient = "demilade.soremekun@halogensecurity.com";
+
+            Mail::send('emails.new_user', $email_data, function ($m) use ($recipient) {
+                $m->from('hens@halogensecurity.com', 'Halogen e-Notification Service');
+                $m->to($recipient)->subject('Welcome to HaloPivot!');
+            });
+            
+            DB::table('tmp_users')->whereId($user->id)->update(['sent' => true]);
+        }
     }
 }
