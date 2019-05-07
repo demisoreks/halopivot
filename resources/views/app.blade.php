@@ -65,7 +65,7 @@
             <div class="row bg-primary">
                 <div class="col-md-6">
                     <div class="text-white float-left" style="display: flex; align-items: center; justify-content: center;">
-                        {{ Html::image('images/logo-new.jpg', 'Halogen Logo', ['width' => 60]) }}&nbsp;&nbsp;
+                        {{ Html::image('images/logo-new-small.jpg', 'Halogen Logo', ['width' => 60]) }}&nbsp;&nbsp;
                         <h4><span class="font-weight-bold">Halo</span>Pivot</h4>
                     </div>
                 </div>
