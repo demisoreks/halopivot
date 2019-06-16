@@ -18,6 +18,15 @@
     </div>
 </div>
 @endif
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" style="margin-bottom: 20px;">
+            <div class="card-body">
+                {{ Html::image('dashboard_banner.jpg', 'Banner', ['width' => '100%']) }}
+            </div>
+        </div>
+    </div>
+</div>
 @if (strpos(Session::get('halo_user')->dashboard_view, 'exco') !== false || strpos(Session::get('halo_user')->dashboard_view, 'strategy') !== false)
 <div class="row">
     <div class="col-lg-4">
@@ -268,6 +277,10 @@ if ($mid_level != "") {
                         <strong>MEDIA</strong>
                     </div>
                     <div class="card-body text-center" style="height: 250px;">
+                        <video height="205" class="col-12" controls autoplay>
+                            <source src="{{ URL::asset('dashboard_video.mp4') }}" type="video/mp4">
+                        </video>
+                        <!--
                         <div id="media" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
@@ -286,6 +299,7 @@ if ($mid_level != "") {
                                 <span class="sr-only">Next</span>
                             </a>
                         </div>
+                        -->
                     </div>
                 </div>
             </div>
@@ -325,20 +339,11 @@ if ($mid_level != "") {
                 <strong>LATEST NEWS</strong>
             </div>
             <div class="card-body" style="height: 509px; overflow-y: scroll;">
-                <!--
+                @foreach (DB::table('tmp_documents')->where('type', 'news')->orderBy('order_no', 'desc')->take(15)->get() as $document)
                 <p>
-                    <a href="#">Halogen launches new portal - HaloPivot</a><br />
-                    <small>Mar 23, 2019</small>
+                    <a href="{{ $document->url }}" target="_blank">{{ $document->title }}</a>
                 </p>
-                <p>
-                    <a href="#">Graduation of Academy Halogen's 5th MBA Set</a><br />
-                    <small>Mar 15, 2019</small>
-                </p>
-                <p>
-                    <a href="#">About the New Director of Strategy</a><br />
-                    <small>Feb 28, 2019</small>
-                </p>
-                -->
+                @endforeach
             </div>
         </div>
     </div>
