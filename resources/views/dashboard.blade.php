@@ -18,6 +18,7 @@
     </div>
 </div>
 @endif
+<!--
 <div class="row">
     <div class="col-lg-12">
         <div class="card" style="margin-bottom: 20px;">
@@ -27,6 +28,7 @@
         </div>
     </div>
 </div>
+-->
 @if (strpos(Session::get('halo_user')->dashboard_view, 'exco') !== false || strpos(Session::get('halo_user')->dashboard_view, 'strategy') !== false)
 <div class="row">
     <div class="col-lg-4">
@@ -95,30 +97,25 @@
                     </div>
                     <div class="card-body">
                         <div id="performance" class="carousel slide" data-ride="carousel">
-                            <ul class="carousel-indicators">
-                                <li data-target="#performance" data-slide-to="0" class="active bg-secondary" title="Billing"></li>
-                                <li data-target="#performance" data-slide-to="1" class="bg-secondary" title="Gross Margin"></li>
-                                <li data-target="#performance" data-slide-to="2" class="bg-secondary" title="Net Contribution"></li>
-                            </ul>
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <div class="d-block w-100" id="opco-billing-performance"></div>
-                                    @columnchart('Billing Performance', 'opco-billing-performance')
+                                <div class="carousel-item active" style="height: 100%;">
+                                    {!! $billing->container() !!}
+                                    {!! $billing->script() !!}
                                 </div>
-                                <div class="carousel-item">
-                                    <div class="d-block w-100" id="opco-gross-margin-performance"></div>
-                                    @columnchart('Gross Margin Performance', 'opco-gross-margin-performance')
+                                <div class="carousel-item" style="height: 100%;">
+                                    {!! $gross_margin->container() !!}
+                                    {!! $gross_margin->script() !!}
                                 </div>
-                                <div class="carousel-item">
-                                    <div class="d-block w-100" id="opco-net-contribution-performance"></div>
-                                    @columnchart('Net Contribution Performance', 'opco-net-contribution-performance')
+                                <div class="carousel-item" style="height: 100%;">
+                                    {!! $net_contribution->container() !!}
+                                    {!! $net_contribution->script() !!}
                                 </div>
                             </div>
                             <a class="carousel-control-prev" href="#performance" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="carousel-control-prev-icon text-info"><h1>&lt;</h1></span>
                             </a>
                             <a class="carousel-control-next" href="#performance" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="carousel-control-next-icon text-info"><h1>&gt;</h1></span>
                             </a>
                         </div>
                     </div>

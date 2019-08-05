@@ -18,6 +18,8 @@
         {!! Html::script('js/mdb.min.js') !!}
         {!! Html::script('js/datatables.min.js') !!}
         
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+        
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#myTable1').DataTable({

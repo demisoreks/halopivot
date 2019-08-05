@@ -14,6 +14,8 @@ use App\AccEmployee;
 use App\AccActivity;
 use App\AccOpco;
 
+use App\Charts\PerformanceChart;
+
 use GuzzleHttp\Client;
 
 class LoginController extends Controller
@@ -106,6 +108,7 @@ class LoginController extends Controller
         $current_month = DB::table('tmp_fin_config')->whereId(1)->first()->current_month;
         $current_year = DB::table('tmp_fin_config')->whereId(1)->first()->current_year;
         
+        /*
         $billing_performance = Lava::DataTable();
         $billing_performance->addStringColumn('OPCO');
         $billing_performance->addNumberColumn('Year '.$current_year.' Budget');
@@ -174,6 +177,58 @@ class LoginController extends Controller
             'title' => 'Performance',
             'fontName' => 'Poppins'
         ]);
+        */
+        
+        $billing = new PerformanceChart();
+        $billing->labels(['PS', 'Armada', 'ArmourX', 'Avert', 'Avant', 'Academy']);
+        $i = 0;
+        $year_end_budget = [];
+        $month_budget = [];
+        $month_actual = [];
+        foreach (AccOpco::where('active', true)->get() as $opco) {
+            $year_end_budget[$i] = DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'billing')->first()->current_year_end_budget;
+            $month_budget[$i] = DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'billing')->first()->current_year_month_budget;
+            $month_actual[$i] = DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'billing')->first()->current_year_month_actual;
+            $i ++;
+        }
+        $billing->dataset('Year '.$current_year.' Budget', 'bar', $year_end_budget)->color('#0d47a1')->backgroundColor('#4285f4');
+        $billing->dataset($current_month.' '.$current_year.' Budget', 'bar', $month_budget)->color('#cc0000')->backgroundColor('#ff4444');
+        $billing->dataset($current_month.' '.$current_year.' Actual', 'bar', $month_actual)->color('#ff8800')->backgroundColor('#ffbb33');
+        $billing->title('Billing Performance as at '.$current_month.' '.$current_year);
+        
+        $gross_margin = new PerformanceChart();
+        $gross_margin->labels(['PS', 'Armada', 'ArmourX', 'Avert', 'Avant', 'Academy']);
+        $j = 0;
+        $year_end_budget2 = [];
+        $month_budget2 = [];
+        $month_actual2 = [];
+        foreach (AccOpco::where('active', true)->get() as $opco) {
+            $year_end_budget2[$j] = DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'billing')->first()->current_year_end_budget - DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'cost_of_sales')->first()->current_year_end_budget;
+            $month_budget2[$j] = DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'billing')->first()->current_year_month_budget - DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'cost_of_sales')->first()->current_year_month_budget;
+            $month_actual2[$j] = DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'billing')->first()->current_year_month_actual - DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'cost_of_sales')->first()->current_year_month_actual;
+            $j ++;
+        }
+        $gross_margin->dataset('Year '.$current_year.' Budget', 'bar', $year_end_budget2)->color('#0d47a1')->backgroundColor('#4285f4');
+        $gross_margin->dataset($current_month.' '.$current_year.' Budget', 'bar', $month_budget2)->color('#cc0000')->backgroundColor('#ff4444');
+        $gross_margin->dataset($current_month.' '.$current_year.' Actual', 'bar', $month_actual2)->color('#ff8800')->backgroundColor('#ffbb33');
+        $gross_margin->title('Gross Margin Performance as at '.$current_month.' '.$current_year);
+        
+        $net_contribution = new PerformanceChart();
+        $net_contribution->labels(['PS', 'Armada', 'ArmourX', 'Avert', 'Avant', 'Academy']);
+        $k = 0;
+        $year_end_budget3 = [];
+        $month_budget3 = [];
+        $month_actual3 = [];
+        foreach (AccOpco::where('active', true)->get() as $opco) {
+            $year_end_budget3[$k] = DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'billing')->first()->current_year_end_budget - DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'cost_of_sales')->first()->current_year_end_budget - DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'direct_overhead')->first()->current_year_end_budget - DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'central_cost')->first()->current_year_end_budget;
+            $month_budget3[$k] = DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'billing')->first()->current_year_month_budget - DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'cost_of_sales')->first()->current_year_month_budget - DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'direct_overhead')->first()->current_year_month_budget - DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'central_cost')->first()->current_year_month_budget;
+            $month_actual3[$k] = DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'billing')->first()->current_year_month_actual - DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'cost_of_sales')->first()->current_year_month_actual - DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'direct_overhead')->first()->current_year_month_actual - DB::table('tmp_fin_details')->where('opco_id', $opco->id)->where('line', 'central_cost')->first()->current_year_month_actual;
+            $k ++;
+        }
+        $net_contribution->dataset('Year '.$current_year.' Budget', 'bar', $year_end_budget3)->color('#0d47a1')->backgroundColor('#4285f4');
+        $net_contribution->dataset($current_month.' '.$current_year.' Budget', 'bar', $month_budget3)->color('#cc0000')->backgroundColor('#ff4444');
+        $net_contribution->dataset($current_month.' '.$current_year.' Actual', 'bar', $month_actual3)->color('#ff8800')->backgroundColor('#ffbb33');
+        $net_contribution->title('Net Contribution as at '.$current_month.' '.$current_year);
         
         $client = new Client();
         $res = $client->request('GET', DB::table('acc_config')->whereId(1)->first()->master_url.'/api/getLinks', [
@@ -183,7 +238,7 @@ class LoginController extends Controller
         ]);
         $links = json_decode($res->getBody());
         
-        return view('dashboard', compact('links'));
+        return view('dashboard', compact('links', 'billing', 'gross_margin', 'net_contribution'));
     }
     
     public function logout() {
