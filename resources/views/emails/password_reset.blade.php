@@ -11,6 +11,6 @@
         Password: {{ $password }}<br /><br />
         Please contact IT Support if you encounter any challenges.<br /><br />
         Regards,<br /><br />
-        <strong>Strategy Hub, Halogen Group</strong><br /><br />
+        <strong>Information Technology, Halogen Group</strong><br /><br />
     </body>
 </html>
