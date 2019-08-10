@@ -266,9 +266,9 @@ if ($mid_level != "") {
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-8">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="card" style="margin-bottom: 20px;">
                     <div class="card-header bg-white">
                         <strong>MEDIA</strong>
@@ -303,6 +303,20 @@ if ($mid_level != "") {
             <div class="col-lg-6">
                 <div class="card" style="margin-bottom: 20px;">
                     <div class="card-header bg-white">
+                        <strong>LATEST NEWS</strong>
+                    </div>
+                    <div class="card-body" style="height: 250px; overflow-y: scroll;">
+                        @foreach (DB::table('tmp_documents')->where('type', 'news')->orderBy('order_no', 'desc')->take(15)->get() as $document)
+                        <p>
+                            <a href="{{ $document->url }}" target="_blank">{{ $document->title }}</a>
+                        </p>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-header bg-white">
                         <strong>HR POLICIES</strong>
                     </div>
                     <div class="card-body" style="height: 192px; overflow-y: scroll;">
@@ -314,7 +328,7 @@ if ($mid_level != "") {
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="card" style="margin-bottom: 20px;">
                     <div class="card-header bg-white">
                         <strong>ISO DOCS</strong>
@@ -328,19 +342,19 @@ if ($mid_level != "") {
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="card" style="margin-bottom: 20px;">
-            <div class="card-header bg-white">
-                <strong>LATEST NEWS</strong>
-            </div>
-            <div class="card-body" style="height: 509px; overflow-y: scroll;">
-                @foreach (DB::table('tmp_documents')->where('type', 'news')->orderBy('order_no', 'desc')->take(15)->get() as $document)
-                <p>
-                    <a href="{{ $document->url }}" target="_blank">{{ $document->title }}</a>
-                </p>
-                @endforeach
+            <div class="col-lg-4">
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-header bg-white">
+                        <strong>QMS DOCS</strong>
+                    </div>
+                    <div class="card-body" style="height: 192px; overflow-y: scroll;">
+                        @foreach (DB::table('tmp_documents')->where('type', 'qms')->orderBy('order_no')->get() as $document)
+                        <p>
+                            <a href="{{ $document->url }}" target="_blank">{{ $document->title }}</a>
+                        </p>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     </div>
