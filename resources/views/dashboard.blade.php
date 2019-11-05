@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 <video class="col-12" controls autoplay>
-                    <source src="{{ URL::asset('dashboard_video.mp4') }}" type="video/mp4">
+                    <source src="{{ URL::asset('videos/dashboard_video_20191105.mp4') }}" type="video/mp4">
                 </video>
             </div>
         </div>
@@ -274,8 +274,8 @@ if ($mid_level != "") {
                         <strong>MEDIA</strong>
                     </div>
                     <div class="card-body text-center" style="height: 250px;">
-                        <video height="205" class="col-12" controls autoplay>
-                            <source src="{{ URL::asset('dashboard_video.mp4') }}" type="video/mp4">
+                        <video height="205" class="col-12" controls autoplay muted>
+                            <source src="{{ URL::asset('videos/dashboard_video.mp4') }}" type="video/mp4">
                         </video>
                         <!--
                         <div id="media" class="carousel slide" data-ride="carousel">
