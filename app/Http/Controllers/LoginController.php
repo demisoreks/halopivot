@@ -46,6 +46,7 @@ class LoginController extends Controller
                     if ($employee->active) {
                         if (!isset($_SESSION)) session_start();
                         $_SESSION['halo_user'] = $employee;
+                        $_SESSION['halo_username'] = $employee->username;
                         Session::put('halo_user', $employee);
                         AccActivity::create([
                             'employee_id' => $employee->id,
@@ -245,14 +246,15 @@ class LoginController extends Controller
         if (Session::has('halo_user')) {
             $employee = Session::get('halo_user');
             Session::forget('halo_user');
-            if (!isset($_SESSION)) session_start();
-            unset($_SESSION['halo_user']);
             AccActivity::create([
                 'employee_id' => $employee->id, 
                 'detail' => 'User logged out.', 
                 'source_ip' => $_SERVER["REMOTE_ADDR"]
             ]);
         }
+        if (!isset($_SESSION)) session_start();
+        unset($_SESSION['halo_user']);
+        unset($_SESSION['halo_username']);
         return Redirect::route('welcome')
                 ->with('success', '<span class="font-weight-bold">Successful!</span><br />You have logged out.');
     }
