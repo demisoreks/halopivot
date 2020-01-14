@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 <video class="col-12" controls autoplay>
-                    <source src="{{ URL::asset('videos/dashboard_video_20191105.mp4') }}" type="video/mp4">
+                    <source src="{{ URL::asset('videos/dashboard_video_20200113.mp4') }}" type="video/mp4">
                 </video>
             </div>
         </div>
