@@ -22,6 +22,7 @@
                         <table id="myTable1" class="display-1 table table-condensed table-hover table-striped">
                             <thead>
                                 <tr class="text-center">
+                                    <th width="10%"><strong>ID</strong></th>
                                     <th width="10%"><strong>ORDER NO.</strong></th>
                                     <th><strong>TITLE</strong></th>
                                     <th width="35%"><strong>URL</strong></th>
@@ -33,6 +34,7 @@
                                 @foreach ($privileged_links as $privileged_link)
                                     @if ($privileged_link->active)
                                 <tr>
+                                    <td class="text-right">{{ $privileged_link->id }}</td>
                                     <td class="text-right">{{ $privileged_link->order_no }}</td>
                                     <td>{{ $privileged_link->title }}</td>
                                     <td>{{ $privileged_link->url }}</td>
@@ -62,6 +64,7 @@
                         <table id="myTable2" class="display-1 table table-condensed table-hover table-striped">
                             <thead>
                                 <tr class="text-center">
+                                    <th width="10%"><strong>ID</strong></th>
                                     <th width="10%"><strong>ORDER NO.</strong></th>
                                     <th><strong>TITLE</strong></th>
                                     <th width="35%"><strong>URL</strong></th>
@@ -73,6 +76,7 @@
                                 @foreach ($privileged_links as $privileged_link)
                                     @if (!$privileged_link->active)
                                 <tr>
+                                    <td class="text-right">{{ $privileged_link->id }}</td>
                                     <td class="text-right">{{ $privileged_link->order_no }}</td>
                                     <td>{{ $privileged_link->title }}</td>
                                     <td>{{ $privileged_link->url }}</td>
