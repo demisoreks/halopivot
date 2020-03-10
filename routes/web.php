@@ -21,6 +21,13 @@ Route::get('logout', [
     'as' => 'logout', 'uses' => 'LoginController@logout'
 ]);
 
+Route::get('induction/{employee}', [
+    'as' => 'induction', 'uses' => 'LoginController@induction'
+]);
+Route::post('submit_induction/{employee}', [
+    'as' => 'submit_induction', 'uses' => 'LoginController@submit_induction'
+]);
+
 Route::get('access', [
     'as' => 'access', 'uses' => 'AccessControlController@index'
 ])->middleware(['auth.user', 'auth.access:'.$link_id.',Admin,Control']);

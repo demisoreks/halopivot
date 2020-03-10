@@ -10,9 +10,11 @@ use Session;
 use Lava;
 use DB;
 use Mail;
+use PDF;
 use App\AccEmployee;
 use App\AccActivity;
 use App\AccOpco;
+use App\AccInduction;
 
 use App\Charts\PerformanceChart;
 
@@ -44,17 +46,22 @@ class LoginController extends Controller
                             ->with('success', '<span class="font-weight-bold">Password change required!</span><br />Update your password to continue.');
                 } else {
                     if ($employee->active) {
-                        if (!isset($_SESSION)) session_start();
-                        $_SESSION['halo_user'] = $employee;
-                        $_SESSION['halo_username'] = $employee->username;
-                        Session::put('halo_user', $employee);
-                        AccActivity::create([
-                            'employee_id' => $employee->id,
-                            'detail' => 'User logged in.',
-                            'source_ip' => $_SERVER['REMOTE_ADDR']
-                        ]);
-                        $employee->update(['last_login' => date('Y-m-d H:i:s'), 'login_attempts' => 0]);
-                        return Redirect::route('dashboard');
+                        $inductions = AccInduction::where('employee_id', $employee->id);
+                        if ($inductions->count() == 0 && ($employee->created_at > '2020-03-08 00:00:00' || in_array($employee->username, ['demilade.soremekun', 'wale.olaoye', 'fadekemi.sutton', 'adejimi.adeboye']))) {
+                            return Redirect::route('induction', $employee->slug());
+                        } else {
+                            if (!isset($_SESSION)) session_start();
+                            $_SESSION['halo_user'] = $employee;
+                            $_SESSION['halo_username'] = $employee->username;
+                            Session::put('halo_user', $employee);
+                            AccActivity::create([
+                                'employee_id' => $employee->id,
+                                'detail' => 'User logged in.',
+                                'source_ip' => $_SERVER['REMOTE_ADDR']
+                            ]);
+                            $employee->update(['last_login' => date('Y-m-d H:i:s'), 'login_attempts' => 0]);
+                            return Redirect::route('dashboard');
+                        }
                     } else {
                         return Redirect::back()
                                 ->with('error', '<span class="font-weight-bold">Login error!</span><br />User account is inactive.');
@@ -259,6 +266,50 @@ class LoginController extends Controller
                 ->with('success', '<span class="font-weight-bold">Successful!</span><br />You have logged out.');
     }
     
+    public function induction(AccEmployee $employee) {
+        $name = strtoupper(str_replace(".", " ", $employee->username));
+        return view('induction', compact('employee', 'name'));
+    }
+    
+    public function submit_induction(AccEmployee $employee) {
+        $input = Input::all();
+        
+        $induction = AccInduction::create(['employee_id' => $employee->id]);
+        
+        $name = $input['name'];
+        $completion_date = $induction->created_at->format('F j, Y');
+        $completion_time = $induction->created_at->format('g:i a');
+        
+        $pdf = PDF::loadView('induction_pdf', compact('name', 'completion_date', 'completion_time'));
+        
+        $email_data = [
+            'name' => $name
+        ];
+
+        $recipient = $employee->username.'@halogensecurity.com';
+        
+        $u = str_replace(".", "-", $employee->username);
+
+        Mail::send('emails.induction', $email_data, function ($m) use ($recipient, $u, $pdf) {
+            $m->from('hens@halogensecurity.com', 'Halogen e-Notification Service');
+            $m->to($recipient)->subject('Halogen Induction');
+            $m->cc('hcd@halogensecurity.com');
+            $m->attachData($pdf->output(), 'attestation-'.$u.'.pdf');
+        });
+        
+        if (!isset($_SESSION)) session_start();
+        $_SESSION['halo_user'] = $employee;
+        $_SESSION['halo_username'] = $employee->username;
+        Session::put('halo_user', $employee);
+        AccActivity::create([
+            'employee_id' => $employee->id,
+            'detail' => 'User logged in.',
+            'source_ip' => $_SERVER['REMOTE_ADDR']
+        ]);
+        $employee->update(['last_login' => date('Y-m-d H:i:s'), 'login_attempts' => 0]);
+        return Redirect::route('dashboard');
+    }
+
     public function generate_passwords() {
         $p1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $p2 = "abcdefghijklmnopqrstuvwxyz";

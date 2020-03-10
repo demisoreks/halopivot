@@ -20,4 +20,8 @@ class AccEmployee extends Model
     public function employeeRoles() {
         return $this->hasMany('App\AccEmployeeRole');
     }
+    
+    public function inductions() {
+        return $this->hasMany('App\AccInduction');
+    }
 }
